@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  min-height: 100%;
+  /* React 挂载和父页面主题消息到达前，先按系统主题保持正确首帧。 */
+  background-color: #08090a;
+}
+
+@media (prefers-color-scheme: light) {
+  html,
+  body,
+  #root {
+    background-color: #ffffff;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* shadcn 基础层兜底: 没写显式 text-x / bg-x 的文字和表面 (textarea 输入文字、
+     placeholder、气泡正文) 从这里继承主题色, 不依赖 UA 默认色.
+     烧主题前 token 未定义时这两行按无效值优雅回退, 无副作用. */
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* 中英混排对齐:一行里英文(尤其 ds 的 display/像素字体如 Press Start 2P)和中文(系统黑体)
+   混在一起时,英文会偏小、偏上,跟中文对不齐。把纯英文/数字那一截用 <span className="cjk-latin">
+   包起来即可统一对齐:font-size-adjust 拉平字号,vertical-align 把英文下移到与中文同基线。
+   --cjk-latin-shift 由 design_picker 按 ds 烧进 :root(默认 -0.15em);极个别字体偏差大改这一个值。 */
+.cjk-latin {
+  font-size-adjust: 0.56;
+  vertical-align: var(--cjk-latin-shift, -0.15em);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card-foreground: 0 0% 100%;
+    --popover-foreground: 0 0% 100%;
+    --card: 188 67% 2%;
+    --popover: 188 67% 2%;
+    --secondary: 185 65% 7%;
+    --muted: 185 65% 7%;
+    --accent: 185 65% 7%;
+    --secondary-foreground: 0 0% 100%;
+    --accent-foreground: 0 0% 100%;
+    --muted-foreground: 240 5% 65%;
+    --border: 196 24% 15%;
+    --input: 196 24% 15%;
+    --primary: 155 90% 58%;
+    --ring: 155 90% 58%;
+    --primary-foreground: 0 0% 0%;
+    --destructive-foreground: 0 0% 0%;
+    --destructive: 0 72% 51%;
+    --radius: var(--radius-md);
+
+    --space-1: 4px;
+    --space-12: 64px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 28px;
+    --space-8: 36px;
+    --radius-lg: 12px;
+    --radius-md: 8px;
+    --radius-pill: 9999px;
+    --radius-sm: 9999px;
+    --elev-flat: none;
+    --focus-ring: 0 0 0 2px #36f4a4;
+    --elev-ring: 0 0 0 1px var(--border);
+    --text-2xl: 48px;
+    --text-3xl: 70px;
+    --text-4xl: 96px;
+    --text-base: 18px;
+    --text-lg: 20px;
+    --text-sm: 14px;
+    --text-xl: 32px;
+    --text-xs: 12px;
+    --leading-body: 1.56;
+    --leading-tight: 1.00;
+    --font-display: "NeueHaasGrotesk", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-body: "Inter Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-mono: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --cjk-latin-shift: -0.15em;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card-foreground: 0 0% 100%;
+    --popover-foreground: 0 0% 100%;
+    --card: 188 67% 2%;
+    --popover: 188 67% 2%;
+    --secondary: 185 65% 7%;
+    --muted: 185 65% 7%;
+    --accent: 185 65% 7%;
+    --secondary-foreground: 0 0% 100%;
+    --accent-foreground: 0 0% 100%;
+    --muted-foreground: 240 5% 65%;
+    --border: 196 24% 15%;
+    --input: 196 24% 15%;
+    --primary: 155 90% 58%;
+    --ring: 155 90% 58%;
+    --primary-foreground: 0 0% 0%;
+    --destructive-foreground: 0 0% 0%;
+    --destructive: 0 72% 51%;
+    --radius: var(--radius-md);
+
+    --space-1: 4px;
+    --space-12: 64px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 28px;
+    --space-8: 36px;
+    --radius-lg: 12px;
+    --radius-md: 8px;
+    --radius-pill: 9999px;
+    --radius-sm: 9999px;
+    --elev-flat: none;
+    --focus-ring: 0 0 0 2px #36f4a4;
+    --elev-ring: 0 0 0 1px var(--border);
+    --text-2xl: 48px;
+    --text-3xl: 70px;
+    --text-4xl: 96px;
+    --text-base: 18px;
+    --text-lg: 20px;
+    --text-sm: 14px;
+    --text-xl: 32px;
+    --text-xs: 12px;
+    --leading-body: 1.56;
+    --leading-tight: 1.00;
+    --font-display: "NeueHaasGrotesk", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-body: "Inter Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-mono: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --cjk-latin-shift: -0.15em;
+  }
+
+  body { font-family: var(--font-body); }
+
+  /* 中英混排: 把英文/数字那一截用 <span class="cjk-latin"> 包起来, 字号 + 基线对齐中文 (font-size-adjust 0.56 实测最贴中文字高) */
+  .cjk-latin { font-size-adjust: 0.56; vertical-align: var(--cjk-latin-shift, -0.15em); }
+}
